@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: "bitnami/postgresql:16"
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
