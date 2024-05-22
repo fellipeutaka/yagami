@@ -1,12 +1,12 @@
 import type { FastifyInstance } from "fastify";
 import type { FastifyZodOpenApiTypeProvider } from "fastify-zod-openapi";
 import { z } from "zod";
+import { makeGetUserProfileUseCase } from "~/app/use-cases/factories/make-get-user-profile-use.case";
+import { securitySchemes } from "~/http/lib/swagger";
 import {
   unauthorizedErrorSchema,
   verifyJwt,
 } from "~/http/middlewares/verify-jwt";
-import { securitySchemes } from "~/lib/swagger";
-import { makeGetUserProfileUseCase } from "~/use-cases/factories/make-get-user-profile-use.case";
 
 export async function profile(app: FastifyInstance) {
   app.withTypeProvider<FastifyZodOpenApiTypeProvider>().get(
@@ -31,7 +31,7 @@ export async function profile(app: FastifyInstance) {
           }),
         },
       },
-      onRequest: [(request, reply) => verifyJwt(request, reply)],
+      onRequest: [(...params) => verifyJwt(...params)],
     },
     async (request, reply) => {
       const getUserProfile = makeGetUserProfileUseCase();

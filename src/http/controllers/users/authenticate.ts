@@ -1,9 +1,8 @@
-import { InvalidCredentialsError } from "~/use-cases/errors/invalid-credentials-error";
-import { makeAuthenticateUseCase } from "~/use-cases/factories/make-authenticate-use-case";
-
 import type { FastifyInstance } from "fastify";
 import type { FastifyZodOpenApiTypeProvider } from "fastify-zod-openapi";
 import { z } from "zod";
+import { InvalidCredentialsError } from "~/app/use-cases/errors/invalid-credentials-error";
+import { makeAuthenticateUseCase } from "~/app/use-cases/factories/make-authenticate-use-case";
 
 export async function authenticate(app: FastifyInstance) {
   app.withTypeProvider<FastifyZodOpenApiTypeProvider>().post(

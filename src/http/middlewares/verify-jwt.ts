@@ -1,8 +1,17 @@
-import type { FastifyReply, FastifyRequest } from "fastify";
+import type {
+  FastifyReply,
+  FastifyRequest,
+  HookHandlerDoneFunction,
+} from "fastify";
 import { z } from "zod";
+
 const message = "Unauthorized.";
 
-export async function verifyJwt(request: FastifyRequest, reply: FastifyReply) {
+export async function verifyJwt(
+  request: FastifyRequest,
+  reply: FastifyReply,
+  _done?: HookHandlerDoneFunction,
+) {
   try {
     await request.jwtVerify();
   } catch {

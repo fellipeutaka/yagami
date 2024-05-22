@@ -20,6 +20,9 @@
       },
       "suspicious": {
         "noEmptyBlockStatements": "off"
+      },
+      "complexity": {
+        "noStaticOnlyClass": "off"
       }
     }
   },
@@ -37,7 +40,7 @@
     {
       "include": [
         "src/http/controllers/**/*.ts",
-        "src/repositories/in-memory/*.ts"
+        "src/app/repositories/in-memory/*.ts"
       ],
       "linter": {
         "rules": {

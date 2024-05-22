@@ -15,20 +15,20 @@ import packageJson from "../package.json";
 import { env } from "./env";
 import { homeworksRoutes } from "./http/controllers/homeworks/routes";
 import { usersRoutes } from "./http/controllers/users/routes";
-import { securitySchemes } from "./lib/swagger";
+import { securitySchemes } from "./http/lib/swagger";
 
 export const app = fastify().withTypeProvider<FastifyZodOpenApiTypeProvider>();
 
 app.setErrorHandler((error, _req, reply) => {
   if (error instanceof ZodError) {
-    reply.status(400).send({
+    return reply.status(400).send({
       message: "Validation error",
       errors: error.flatten().fieldErrors,
     });
   }
 
   if (error instanceof ValidationError) {
-    reply.status(400).send({
+    return reply.status(400).send({
       message: "Validation error",
       errors: error.zodError.flatten().fieldErrors,
     });
@@ -36,7 +36,7 @@ app.setErrorHandler((error, _req, reply) => {
 
   console.error(error);
 
-  reply.status(500).send({ message: "Internal server error" });
+  return reply.status(500).send({ message: "Internal server error" });
 });
 
 app.setValidatorCompiler(validatorCompiler);

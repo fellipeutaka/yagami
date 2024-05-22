@@ -1,11 +1,11 @@
 import type { FastifyInstance } from "fastify";
 import type { FastifyZodOpenApiTypeProvider } from "fastify-zod-openapi";
 import { z } from "zod";
+import { securitySchemes } from "~/http/lib/swagger";
 import {
   unauthorizedErrorSchema,
   verifyJwt,
 } from "~/http/middlewares/verify-jwt";
-import { securitySchemes } from "~/lib/swagger";
 
 export async function refresh(app: FastifyInstance) {
   app.withTypeProvider<FastifyZodOpenApiTypeProvider>().patch(
@@ -26,7 +26,7 @@ export async function refresh(app: FastifyInstance) {
           }),
         },
       },
-      onRequest: [(request, reply) => verifyJwt(request, reply)],
+      onRequest: [(...params) => verifyJwt(...params)],
     },
     async (request, reply) => {
       const accessToken = await reply.jwtSign(

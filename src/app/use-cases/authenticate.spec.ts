@@ -1,6 +1,7 @@
 import { hash } from "argon2";
 import { beforeEach, describe, expect, it } from "vitest";
-import { InMemoryUsersRepository } from "~/repositories/in-memory/in-memory-users-repository";
+import { User } from "../entities/user";
+import { InMemoryUsersRepository } from "../repositories/in-memory/in-memory-users-repository";
 import { AuthenticateUseCase } from "./authenticate";
 import { InvalidCredentialsError } from "./errors/invalid-credentials-error";
 
@@ -14,11 +15,14 @@ describe("Authenticate Use Case", () => {
   });
 
   it("should be able to authenticate", async () => {
-    await usersRepository.create({
-      name: "John Doe",
-      email: "johndoe@example.com",
-      passwordHash: await hash("123456"),
-    });
+    await usersRepository.create(
+      new User({
+        name: "John Doe",
+        email: "johndoe@example.com",
+        password: await hash("123456"),
+        createdAt: new Date(),
+      }),
+    );
 
     const { user } = await sut.execute({
       email: "johndoe@example.com",
@@ -38,11 +42,14 @@ describe("Authenticate Use Case", () => {
   });
 
   it("should not be able to authenticate with wrong email", async () => {
-    await usersRepository.create({
-      name: "John Doe",
-      email: "johndoe@example.com",
-      passwordHash: await hash("123456"),
-    });
+    await usersRepository.create(
+      new User({
+        name: "John Doe",
+        email: "johndoe@example.com",
+        password: await hash("123456"),
+        createdAt: new Date(),
+      }),
+    );
 
     await expect(() =>
       sut.execute({

@@ -1,4 +1,4 @@
-import type { Prisma, User } from "@prisma/client";
+import { User } from "~/app/entities/user";
 import type { UsersRepository } from "../users-repository";
 
 export class InMemoryUsersRepository implements UsersRepository {
@@ -24,14 +24,8 @@ export class InMemoryUsersRepository implements UsersRepository {
     return user;
   }
 
-  async create(data: Prisma.UserCreateInput) {
-    const user = {
-      id: crypto.randomUUID(),
-      name: data.name,
-      email: data.email,
-      passwordHash: data.passwordHash,
-      createdAt: new Date(),
-    } satisfies User;
+  async create(data: User) {
+    const user = new User(data);
 
     this.items.push(user);
 

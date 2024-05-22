@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { InMemoryUsersRepository } from "~/repositories/in-memory/in-memory-users-repository";
+import { REGEXP_UUID } from "~/constants/regex";
+import { InMemoryUsersRepository } from "../repositories/in-memory/in-memory-users-repository";
 import { UserAlreadyExistsError } from "./errors/user-already-exists-error";
 import { RegisterUseCase } from "./register";
 
@@ -19,7 +20,7 @@ describe("Register Use Case", () => {
       password: "123456",
     });
 
-    expect(user.id).toEqual(expect.any(String));
+    expect(user.id).toMatch(REGEXP_UUID);
   });
 
   it("should hash user password upon registration", async () => {
@@ -30,7 +31,7 @@ describe("Register Use Case", () => {
     });
 
     const { verify } = await import("argon2");
-    const isPasswordCorrectlyHashed = await verify(user.passwordHash, "123456");
+    const isPasswordCorrectlyHashed = await verify(user.password, "123456");
 
     expect(isPasswordCorrectlyHashed).toBe(true);
   });

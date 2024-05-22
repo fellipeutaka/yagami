@@ -11,7 +11,7 @@ export async function homeworksRoutes(app: FastifyInstance) {
   //     schema: {
   //       tags: ["Homework"],
   //     },
-  //     onRequest: [(request, reply) => verifyJwt(request, reply)],
+  //     onRequest: [(...params) => verifyJwt(...params)],
   //   },
   //   list,
   // );
@@ -21,7 +21,7 @@ export async function homeworksRoutes(app: FastifyInstance) {
   //     schema: {
   //       tags: ["Homework"],
   //     },
-  //     onRequest: [(request, reply) => verifyJwt(request, reply)],
+  //     onRequest: [(...params) => verifyJwt(...params)],
   //   },
   //   list,
   // );
@@ -31,7 +31,7 @@ export async function homeworksRoutes(app: FastifyInstance) {
   //     schema: {
   //       tags: ["Homework"],
   //     },
-  //     onRequest: [(request, reply) => verifyJwt(request, reply)],
+  //     onRequest: [(...params) => verifyJwt(...params)],
   //   },
   //   list,
   // );

@@ -1,8 +1,8 @@
 import type { FastifyInstance } from "fastify";
 import type { FastifyZodOpenApiTypeProvider } from "fastify-zod-openapi";
 import { z } from "zod";
-import { UserAlreadyExistsError } from "~/use-cases/errors/user-already-exists-error";
-import { makeRegisterUseCase } from "~/use-cases/factories/make-register-use-case";
+import { UserAlreadyExistsError } from "~/app/use-cases/errors/user-already-exists-error";
+import { makeRegisterUseCase } from "~/app/use-cases/factories/make-register-use-case";
 
 export async function register(app: FastifyInstance) {
   app.withTypeProvider<FastifyZodOpenApiTypeProvider>().post(

@@ -1,5 +1,4 @@
-import type { User } from "@prisma/client";
-import type { UsersRepository } from "~/repositories/users-repository";
+import type { UsersRepository } from "../repositories/users-repository";
 import { InvalidCredentialsError } from "./errors/invalid-credentials-error";
 
 interface AuthenticateUseCaseRequest {
@@ -7,17 +6,10 @@ interface AuthenticateUseCaseRequest {
   password: string;
 }
 
-interface AuthenticateUseCaseResponse {
-  user: User;
-}
-
 export class AuthenticateUseCase {
   constructor(private usersRepository: UsersRepository) {}
 
-  async execute({
-    email,
-    password,
-  }: AuthenticateUseCaseRequest): Promise<AuthenticateUseCaseResponse> {
+  async execute({ email, password }: AuthenticateUseCaseRequest) {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
@@ -25,7 +17,7 @@ export class AuthenticateUseCase {
     }
 
     const { verify } = await import("argon2");
-    const doestPasswordMatches = await verify(user.passwordHash, password);
+    const doestPasswordMatches = await verify(user.password, password);
 
     if (!doestPasswordMatches) {
       throw new InvalidCredentialsError();

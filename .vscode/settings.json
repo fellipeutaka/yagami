@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["biomejs", "fastify", "tsup", "yagami"],
+  "cSpell.words": ["biomejs", "fastify", "openapi", "tsup", "yagami"],
   "editor.defaultFormatter": "biomejs.biome",
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "typescript.enablePromptUseWorkspaceTsdk": true
