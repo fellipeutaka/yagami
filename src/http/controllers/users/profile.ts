@@ -8,6 +8,15 @@ import {
 } from "~/http/middlewares/verify-jwt";
 import { securitySchemes } from "~/lib/swagger";
 
+export const successSchema = z.object({
+  user: z.object({
+    id: z.string(),
+    name: z.string(),
+    email: z.string(),
+    createdAt: z.coerce.date(),
+  }),
+});
+
 export async function profile(app: FastifyInstance) {
   app.withTypeProvider<FastifyZodOpenApiTypeProvider>().get(
     "/me",
@@ -22,14 +31,7 @@ export async function profile(app: FastifyInstance) {
         ],
         response: {
           ...unauthorizedErrorSchema,
-          200: z.object({
-            user: z.object({
-              id: z.string(),
-              name: z.string(),
-              email: z.string(),
-              createdAt: z.date(),
-            }),
-          }),
+          200: successSchema,
         },
       },
       onRequest: [(...params) => verifyJwt(...params)],
