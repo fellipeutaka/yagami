@@ -8,6 +8,26 @@ import {
 } from "~/http/middlewares/verify-jwt";
 import { securitySchemes } from "~/lib/swagger";
 
+export const successSchema = z.object({
+  data: z
+    .object({
+      id: z.string(),
+      title: z.string(),
+      description: z.string(),
+      dueDate: z.coerce.date(),
+      subject: z.string(),
+      completedAt: z.coerce.date().nullable(),
+      createdAt: z.coerce.date(),
+    })
+    .array(),
+  meta: z.object({
+    lastCursor: z.string().nullable(),
+    hasNextPage: z.boolean().openapi({
+      example: false,
+    }),
+  }),
+});
+
 export async function list(app: FastifyInstance) {
   app.withTypeProvider<FastifyZodOpenApiTypeProvider>().get(
     "/homeworks",
@@ -38,25 +58,7 @@ export async function list(app: FastifyInstance) {
         }),
         response: {
           ...unauthorizedErrorSchema,
-          200: z.object({
-            data: z
-              .object({
-                id: z.string(),
-                title: z.string(),
-                description: z.string(),
-                dueDate: z.date(),
-                subject: z.string(),
-                completedAt: z.date().nullable(),
-                createdAt: z.date(),
-              })
-              .array(),
-            meta: z.object({
-              lastCursor: z.string().nullable(),
-              hasNextPage: z.boolean().openapi({
-                example: false,
-              }),
-            }),
-          }),
+          200: successSchema,
         },
       },
       onRequest: [(...params) => verifyJwt(...params)],

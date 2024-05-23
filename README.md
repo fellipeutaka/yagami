@@ -1,6 +1,6 @@
 ## Todo
 
-- [ ] Setup Prisma to E2E tests
+- [x] Setup Prisma to E2E tests
 - [x] Add Swagger
 - [ ] Add `Insomnia.json`
 

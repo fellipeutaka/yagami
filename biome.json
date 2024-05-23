@@ -28,7 +28,7 @@
   },
   "overrides": [
     {
-      "include": ["**/*.config.ts"],
+      "include": ["**/*.config.ts", "prisma/test-environment.ts"],
       "linter": {
         "rules": {
           "style": {
@@ -40,7 +40,8 @@
     {
       "include": [
         "src/http/controllers/**/*.ts",
-        "src/app/repositories/in-memory/*.ts"
+        "src/app/repositories/in-memory/*.ts",
+        "prisma/test-environment.ts"
       ],
       "linter": {
         "rules": {

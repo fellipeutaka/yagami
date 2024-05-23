@@ -2,7 +2,6 @@ import "zod-openapi/extend";
 import { fastify } from "fastify";
 
 import {
-  type FastifyZodOpenApiTypeProvider,
   ValidationError,
   fastifyZodOpenApiPlugin,
   fastifyZodOpenApiTransform,
@@ -17,7 +16,7 @@ import { homeworksRoutes } from "./http/controllers/homeworks/routes";
 import { usersRoutes } from "./http/controllers/users/routes";
 import { securitySchemes } from "./lib/swagger";
 
-export const app = fastify().withTypeProvider<FastifyZodOpenApiTypeProvider>();
+export const app = fastify();
 
 app.setErrorHandler((error, _req, reply) => {
   if (error instanceof ZodError) {
