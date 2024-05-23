@@ -3,17 +3,18 @@ import type { FastifyInstance } from "fastify";
 import type { FastifyZodOpenApiTypeProvider } from "fastify-zod-openapi";
 import { z } from "zod";
 import { makeCreateHomeworkUseCase } from "~/app/use-cases/factories/make-create-homework-use-case";
-import { securitySchemes } from "~/http/lib/swagger";
 import {
   unauthorizedErrorSchema,
   verifyJwt,
 } from "~/http/middlewares/verify-jwt";
+import { securitySchemes } from "~/lib/swagger";
 
 export async function create(app: FastifyInstance) {
   app.withTypeProvider<FastifyZodOpenApiTypeProvider>().post(
     "/homeworks",
     {
       schema: {
+        description: "Create a new homework",
         tags: ["Homework"],
         security: [
           {

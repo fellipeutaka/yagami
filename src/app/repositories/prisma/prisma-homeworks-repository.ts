@@ -1,6 +1,10 @@
+import type { Prisma } from "@prisma/client";
 import type { Homework } from "~/app/entities/homework";
-import { prisma } from "~/http/lib/prisma";
-import type { HomeworksRepository } from "../homeworks-repository";
+import { prisma } from "~/lib/prisma";
+import type {
+  HomeworkPaginateProps,
+  HomeworksRepository,
+} from "../homeworks-repository";
 import { PrismaHomeworkMapper } from "./mappers/prisma-homework-mapper";
 
 export class PrismaHomeworksRepository implements HomeworksRepository {
@@ -18,10 +22,75 @@ export class PrismaHomeworksRepository implements HomeworksRepository {
     return PrismaHomeworkMapper.toDomain(homework);
   }
 
-  async findMany() {
-    const homeworks = await prisma.homework.findMany();
+  async paginate(props: HomeworkPaginateProps): Promise<{
+    data: Homework[];
+    meta: { lastCursor: string | null; hasNextPage: boolean };
+  }> {
+    const { lastCursor, perPage, userId } = props;
 
-    return homeworks.map(PrismaHomeworkMapper.toDomain);
+    const select = {
+      id: true,
+      title: true,
+      description: true,
+      dueDate: true,
+      subject: true,
+      completedAt: true,
+      createdAt: true,
+    } satisfies Prisma.HomeworkSelect;
+
+    const data = await prisma.homework.findMany({
+      where: {
+        userId,
+      },
+      select,
+      take: perPage,
+      ...(lastCursor && {
+        skip: 1,
+        cursor: {
+          id: lastCursor,
+        },
+      }),
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    const cursor = data.at(-1)?.id;
+
+    if (!cursor) {
+      return {
+        data: [],
+        meta: {
+          lastCursor: null,
+          hasNextPage: false,
+        },
+      };
+    }
+
+    const nextPage = await prisma.homework.findMany({
+      where: {
+        userId,
+      },
+      select,
+      take: 1,
+      skip: 1,
+      cursor: {
+        id: cursor,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    return {
+      data: data.map((homework) =>
+        PrismaHomeworkMapper.toDomain({ ...homework, userId }),
+      ),
+      meta: {
+        lastCursor: cursor,
+        hasNextPage: nextPage.length > 0,
+      },
+    };
   }
 
   async create(data: Homework) {

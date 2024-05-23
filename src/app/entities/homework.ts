@@ -1,4 +1,5 @@
 import type { Subject } from "~/constants/subjects";
+import { ulid } from "~/lib/ulid";
 
 export interface HomeworkProps {
   title: string;
@@ -15,7 +16,7 @@ export class Homework {
   private readonly props: HomeworkProps;
 
   constructor(props: HomeworkProps, id?: string) {
-    this._id = id ?? crypto.randomUUID();
+    this._id = id ?? ulid();
     this.props = props;
   }
 

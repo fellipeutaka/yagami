@@ -9,6 +9,7 @@ export async function register(app: FastifyInstance) {
     "/sign-up",
     {
       schema: {
+        description: "Register a new user",
         tags: ["User"],
         body: z.object({
           name: z.string().openapi({ example: "John Doe" }),

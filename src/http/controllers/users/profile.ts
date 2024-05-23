@@ -2,17 +2,18 @@ import type { FastifyInstance } from "fastify";
 import type { FastifyZodOpenApiTypeProvider } from "fastify-zod-openapi";
 import { z } from "zod";
 import { makeGetUserProfileUseCase } from "~/app/use-cases/factories/make-get-user-profile-use.case";
-import { securitySchemes } from "~/http/lib/swagger";
 import {
   unauthorizedErrorSchema,
   verifyJwt,
 } from "~/http/middlewares/verify-jwt";
+import { securitySchemes } from "~/lib/swagger";
 
 export async function profile(app: FastifyInstance) {
   app.withTypeProvider<FastifyZodOpenApiTypeProvider>().get(
     "/me",
     {
       schema: {
+        description: "Get user profile",
         tags: ["User"],
         security: [
           {

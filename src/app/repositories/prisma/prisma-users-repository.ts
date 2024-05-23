@@ -1,5 +1,5 @@
 import type { User } from "~/app/entities/user";
-import { prisma } from "~/http/lib/prisma";
+import { prisma } from "~/lib/prisma";
 import type { UsersRepository } from "../users-repository";
 import { PrismaUserMapper } from "./mappers/prisma-user-mapper";
 

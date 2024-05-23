@@ -15,7 +15,7 @@ import packageJson from "../package.json";
 import { env } from "./env";
 import { homeworksRoutes } from "./http/controllers/homeworks/routes";
 import { usersRoutes } from "./http/controllers/users/routes";
-import { securitySchemes } from "./http/lib/swagger";
+import { securitySchemes } from "./lib/swagger";
 
 export const app = fastify().withTypeProvider<FastifyZodOpenApiTypeProvider>();
 

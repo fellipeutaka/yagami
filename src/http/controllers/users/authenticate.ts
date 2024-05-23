@@ -9,6 +9,7 @@ export async function authenticate(app: FastifyInstance) {
     "/sign-in",
     {
       schema: {
+        description: "Authenticate a user",
         tags: ["User"],
         body: z.object({
           email: z.string().email().openapi({ example: "johndoe@example.com" }),
