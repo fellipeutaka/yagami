@@ -4,8 +4,9 @@ import type {
   HookHandlerDoneFunction,
 } from "fastify";
 import { z } from "zod";
+import { UnauthorizedError } from "~/app/use-cases/errors/unauthorized-error";
 
-const message = "Unauthorized.";
+const { message } = new UnauthorizedError();
 
 export async function verifyJwt(
   request: FastifyRequest,
@@ -25,6 +26,6 @@ export const unauthorizedErrorSchema = {
       message: z.string().openapi({ example: message }),
     })
     .openapi({
-      description: "Unauthorized",
+      description: message,
     }),
 } as const;

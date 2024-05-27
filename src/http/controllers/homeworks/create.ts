@@ -1,8 +1,8 @@
-import { Subject } from "@prisma/client";
 import type { FastifyInstance } from "fastify";
 import type { FastifyZodOpenApiTypeProvider } from "fastify-zod-openapi";
 import { z } from "zod";
 import { makeCreateHomeworkUseCase } from "~/app/use-cases/factories/make-create-homework-use-case";
+import { subjects } from "~/constants/subjects";
 import {
   unauthorizedErrorSchema,
   verifyJwt,
@@ -36,7 +36,7 @@ export async function create(app: FastifyInstance) {
             .date()
             .min(new Date(), "Due date must be in the future")
             .openapi({ example: new Date() }),
-          subject: z.nativeEnum(Subject).openapi({ example: "MATH" }),
+          subject: z.nativeEnum(subjects).openapi({ example: "MATH" }),
         }),
         response: {
           ...unauthorizedErrorSchema,

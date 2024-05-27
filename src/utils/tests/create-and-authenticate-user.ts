@@ -1,5 +1,6 @@
 import { hash } from "argon2";
 import type { FastifyInstance } from "fastify";
+import { successSchema } from "~/http/controllers/users/authenticate";
 import { prisma } from "~/lib/prisma";
 
 export async function createAndAuthenticateUser(app: FastifyInstance) {
@@ -23,10 +24,7 @@ export async function createAndAuthenticateUser(app: FastifyInstance) {
     },
   });
 
-  const { accessToken, refreshToken } = JSON.parse(body) as Record<
-    "accessToken" | "refreshToken",
-    string
-  >;
+  const { accessToken, refreshToken } = successSchema.parse(JSON.parse(body));
 
   return { accessToken, refreshToken, userId };
 }

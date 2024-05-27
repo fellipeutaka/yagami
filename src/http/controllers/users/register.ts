@@ -22,7 +22,7 @@ export async function register(app: FastifyInstance) {
             .object({
               message: z
                 .string()
-                .openapi({ example: "E-mail already exists." }),
+                .openapi({ example: new UserAlreadyExistsError().message }),
             })
             .openapi({
               description: "Conflict",

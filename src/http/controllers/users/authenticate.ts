@@ -4,6 +4,11 @@ import { z } from "zod";
 import { InvalidCredentialsError } from "~/app/use-cases/errors/invalid-credentials-error";
 import { makeAuthenticateUseCase } from "~/app/use-cases/factories/make-authenticate-use-case";
 
+export const successSchema = z.object({
+  accessToken: z.string(),
+  refreshToken: z.string(),
+});
+
 export async function authenticate(app: FastifyInstance) {
   app.withTypeProvider<FastifyZodOpenApiTypeProvider>().post(
     "/sign-in",
@@ -16,13 +21,12 @@ export async function authenticate(app: FastifyInstance) {
           password: z.string().min(6).openapi({ example: "123456" }),
         }),
         response: {
-          201: z.object({
-            accessToken: z.string(),
-            refreshToken: z.string(),
-          }),
+          201: successSchema,
           400: z
             .object({
-              message: z.string().openapi({ example: "Invalid credentials." }),
+              message: z
+                .string()
+                .openapi({ example: new InvalidCredentialsError().message }),
             })
             .openapi({
               description: "Bad Request",

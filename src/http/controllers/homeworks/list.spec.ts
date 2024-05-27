@@ -58,7 +58,7 @@ describe("List homeworks (e2e)", () => {
     });
 
     expect(JSON.parse(body)).toMatchObject({
-      message: "Unauthorized.",
+      message: "Unauthorized",
     });
 
     expect(statusCode).toEqual(401);
