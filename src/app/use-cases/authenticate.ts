@@ -17,9 +17,9 @@ export class AuthenticateUseCase {
     }
 
     const { verify } = await import("argon2");
-    const doestPasswordMatches = await verify(user.password, password);
+    const doesPasswordMatches = await verify(user.password, password);
 
-    if (!doestPasswordMatches) {
+    if (!doesPasswordMatches) {
       throw new InvalidCredentialsError();
     }
 
