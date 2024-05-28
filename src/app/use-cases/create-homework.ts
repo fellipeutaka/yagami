@@ -2,7 +2,7 @@ import type { Subject } from "../../constants/subjects";
 import { Homework } from "../entities/homework";
 import type { HomeworksRepository } from "../repositories/homeworks-repository";
 
-interface CreateHomeworkUseCaseRequest {
+export interface CreateHomeworkUseCaseRequest {
   title: string;
   description: string;
   dueDate: Date;

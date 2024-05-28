@@ -3,7 +3,7 @@ import { app } from "~/app";
 import { REGEXP_JWT } from "~/constants/regex";
 import { createAndAuthenticateUser } from "~/utils/tests/create-and-authenticate-user";
 
-describe("Refresh Token (e2e)", () => {
+describe("Refresh Token (E2E)", () => {
   beforeAll(async () => {
     await app.ready();
   });

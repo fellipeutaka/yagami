@@ -1,4 +1,4 @@
-import { User } from "~/app/entities/user";
+import type { User } from "~/app/entities/user";
 import type { UsersRepository } from "../users-repository";
 
 export class InMemoryUsersRepository implements UsersRepository {
@@ -25,10 +25,8 @@ export class InMemoryUsersRepository implements UsersRepository {
   }
 
   async create(data: User) {
-    const user = new User(data);
+    this.items.push(data);
 
-    this.items.push(user);
-
-    return user;
+    return data;
   }
 }

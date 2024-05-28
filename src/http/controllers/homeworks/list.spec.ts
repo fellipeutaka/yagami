@@ -3,9 +3,10 @@ import { app } from "~/app";
 import { prisma } from "~/lib/prisma";
 import { ulid } from "~/lib/ulid";
 import { createAndAuthenticateUser } from "~/utils/tests/create-and-authenticate-user";
+import { getTomorrow } from "~/utils/tests/get-tomorrow";
 import { successSchema } from "./list";
 
-describe("List homeworks (e2e)", () => {
+describe("List homeworks (E2E)", () => {
   beforeAll(async () => {
     await app.ready();
   });
@@ -17,15 +18,15 @@ describe("List homeworks (e2e)", () => {
   it("should be able to get paginated homeworks", async () => {
     const { accessToken, userId } = await createAndAuthenticateUser(app);
 
-    const dueDate = new Date();
-    dueDate.setDate(dueDate.getDate() + 1);
+    const dueDate = getTomorrow().toISOString();
+
     for (let i = 0; i < 20; i++) {
       await prisma.homework.create({
         data: {
           id: ulid(),
           title: `Math homework ${i + 1}`,
           description: "Do the exercises 1, 2 and 3",
-          dueDate: dueDate.toISOString(),
+          dueDate,
           subject: "MATH",
           userId,
         },

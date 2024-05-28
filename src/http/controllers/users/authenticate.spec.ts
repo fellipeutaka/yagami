@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { app } from "~/app";
 import { REGEXP_JWT } from "~/constants/regex";
 
-describe("Authenticate (e2e)", () => {
+describe("Authenticate (E2E)", () => {
   beforeAll(async () => {
     await app.ready();
   });

@@ -1,8 +1,9 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { app } from "~/app";
 import { createAndAuthenticateUser } from "~/utils/tests/create-and-authenticate-user";
+import { getTomorrow } from "~/utils/tests/get-tomorrow";
 
-describe("Create homework (e2e)", () => {
+describe("Create homework (E2E)", () => {
   beforeAll(async () => {
     await app.ready();
   });
@@ -11,11 +12,10 @@ describe("Create homework (e2e)", () => {
     await app.close();
   });
 
-  it("should be able to get paginated homeworks", async () => {
+  it("should be able to create a new homework", async () => {
     const { accessToken } = await createAndAuthenticateUser(app);
 
-    const dueDate = new Date();
-    dueDate.setDate(dueDate.getDate() + 1);
+    const dueDate = getTomorrow().toISOString();
 
     const { statusCode } = await app.inject({
       method: "POST",
@@ -26,7 +26,7 @@ describe("Create homework (e2e)", () => {
       body: {
         title: "Math homework",
         description: "Do the exercises 1, 2 and 3",
-        dueDate: dueDate.toISOString(),
+        dueDate,
         subject: "MATH",
       },
     });

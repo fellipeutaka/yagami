@@ -3,7 +3,7 @@ import { app } from "~/app";
 import { createAndAuthenticateUser } from "~/utils/tests/create-and-authenticate-user";
 import { successSchema } from "./profile";
 
-describe("Profile (e2e)", () => {
+describe("Profile (E2E)", () => {
   beforeAll(async () => {
     await app.ready();
   });

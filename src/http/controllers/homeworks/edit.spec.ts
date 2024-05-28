@@ -6,7 +6,7 @@ import { ulid } from "~/lib/ulid";
 import { createAndAuthenticateUser } from "~/utils/tests/create-and-authenticate-user";
 import { getTomorrow } from "~/utils/tests/get-tomorrow";
 
-describe("Delete homework (E2E)", async () => {
+describe("Edit homework (E2E)", async () => {
   beforeAll(async () => {
     await app.ready();
   });
@@ -17,10 +17,10 @@ describe("Delete homework (E2E)", async () => {
 
   const { accessToken, userId } = await createAndAuthenticateUser(app);
 
-  it("should be able to delete a homework", async () => {
+  it("should be able to edit a homework", async () => {
     const dueDate = getTomorrow().toISOString();
-
     const homeworkId = ulid();
+    const createdAt = new Date();
 
     await prisma.homework.create({
       data: {
@@ -30,27 +30,56 @@ describe("Delete homework (E2E)", async () => {
         dueDate,
         subject: "MATH",
         userId,
+        createdAt,
       },
     });
 
     const { statusCode, body } = await app.inject({
-      method: "DELETE",
+      method: "PUT",
       url: `/homeworks/${homeworkId}`,
       headers: {
         authorization: `Bearer ${accessToken}`,
+      },
+      body: {
+        title: "Math homework (EDITED)",
+        description: "Do the exercises 1, 2, 3 and 4",
+        dueDate,
+        subject: "MATH",
+      },
+    });
+
+    const editedHomework = await prisma.homework.findUnique({
+      where: {
+        id: homeworkId,
       },
     });
 
     expect(statusCode).toEqual(200);
     expect(body).toEqual("");
+    expect(editedHomework).toEqual({
+      id: homeworkId,
+      title: "Math homework (EDITED)",
+      description: "Do the exercises 1, 2, 3 and 4",
+      dueDate: new Date(dueDate),
+      subject: "MATH",
+      userId,
+      createdAt,
+      completedAt: null,
+    });
   });
 
-  it("should not be able to delete a homework that does not exist", async () => {
+  it("should not be able to edit a homework that does not exist", async () => {
     const { statusCode, body } = await app.inject({
-      method: "DELETE",
+      method: "PUT",
       url: `/homeworks/${ulid()}`,
       headers: {
         authorization: `Bearer ${accessToken}`,
+      },
+      body: {
+        title: "Math homework (EDITED)",
+        description: "Do the exercises 1, 2, 3 and 4",
+        dueDate: getTomorrow(),
+        subject: "MATH",
       },
     });
 
@@ -60,9 +89,7 @@ describe("Delete homework (E2E)", async () => {
     });
   });
 
-  it("should not be able to delete a homework that belongs to another user", async () => {
-    const dueDate = getTomorrow().toISOString();
-
+  it("should not be able to edit a homework that belongs to another user", async () => {
     const homeworkId = ulid();
 
     const userId = crypto.randomUUID();
@@ -81,17 +108,23 @@ describe("Delete homework (E2E)", async () => {
         id: homeworkId,
         title: "Math homework",
         description: "Do the exercises 1, 2 and 3",
-        dueDate,
+        dueDate: getTomorrow(),
         subject: "MATH",
         userId,
       },
     });
 
     const { statusCode, body } = await app.inject({
-      method: "DELETE",
+      method: "PUT",
       url: `/homeworks/${homeworkId}`,
       headers: {
         authorization: `Bearer ${accessToken}`,
+      },
+      body: {
+        title: "Math homework (EDITED)",
+        description: "Do the exercises 1, 2, 3 and 4",
+        dueDate: getTomorrow(),
+        subject: "MATH",
       },
     });
 

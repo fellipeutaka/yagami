@@ -23,6 +23,7 @@
     "test:cov": "pnpm vitest run --coverage",
     "test:debug": "pnpm vitest --inspect-brk --inspect --logHeapUsage --threads=false",
     "test:e2e": "pnpm vitest run --dir src/http",
+    "test:e2e:watch": "pnpm vitest --dir src/http",
     "type-check": "tsc",
     "db:generate": "prisma generate",
     "db:migrate:dev": "prisma migrate dev",

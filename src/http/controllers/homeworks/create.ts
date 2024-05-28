@@ -9,6 +9,20 @@ import {
 } from "~/http/middlewares/verify-jwt";
 import { securitySchemes } from "~/lib/swagger";
 
+export const createHomeworkBodySchema = z.object({
+  title: z.string().min(3).max(255).openapi({ example: "Math homework" }),
+  description: z
+    .string()
+    .min(3)
+    .max(255)
+    .openapi({ example: "Do the exercises 1, 2 and 3" }),
+  dueDate: z.coerce
+    .date()
+    .min(new Date(), "Due date must be in the future")
+    .openapi({ example: new Date() }),
+  subject: z.nativeEnum(subjects).openapi({ example: "MATH" }),
+});
+
 export async function create(app: FastifyInstance) {
   app.withTypeProvider<FastifyZodOpenApiTypeProvider>().post(
     "/homeworks",
@@ -21,23 +35,7 @@ export async function create(app: FastifyInstance) {
             [securitySchemes.Bearer.name]: [],
           },
         ],
-        body: z.object({
-          title: z
-            .string()
-            .min(3)
-            .max(255)
-            .openapi({ example: "Math homework" }),
-          description: z
-            .string()
-            .min(3)
-            .max(255)
-            .openapi({ example: "Do the exercises 1, 2 and 3" }),
-          dueDate: z.coerce
-            .date()
-            .min(new Date(), "Due date must be in the future")
-            .openapi({ example: new Date() }),
-          subject: z.nativeEnum(subjects).openapi({ example: "MATH" }),
-        }),
+        body: createHomeworkBodySchema,
         response: {
           ...unauthorizedErrorSchema,
           201: z.null(),

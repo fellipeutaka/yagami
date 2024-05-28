@@ -11,7 +11,7 @@
 - [x] Deve ser possível obter o perfil de um usuário logado;
 - [x] Deve ser possível listar todas as tarefas de casa
 - [x] Deve ser possível adicionar uma nova tarefa de casa
-- [ ] Deve ser possível editar uma nova tarefa de casa
+- [x] Deve ser possível editar uma nova tarefa de casa
 - [x] Deve ser possível excluir uma nova tarefa de casa
 
 ## RNs (Regras de negócio)

@@ -3,20 +3,20 @@ import { ulid } from "~/lib/ulid";
 import { Homework } from "../entities/homework";
 import { User } from "../entities/user";
 import { InMemoryHomeworksRepository } from "../repositories/in-memory/in-memory-homeworks-repository";
-import { DeleteHomeworkUseCase } from "./delete-homework";
+import { EditHomeworkUseCase } from "./edit-homework";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 import { UnauthorizedError } from "./errors/unauthorized-error";
 
 let homeworksRepository: InMemoryHomeworksRepository;
-let sut: DeleteHomeworkUseCase;
+let sut: EditHomeworkUseCase;
 
-describe("Delete Homework Use Case", () => {
+describe("Edit Homework Use Case", () => {
   beforeEach(() => {
     homeworksRepository = new InMemoryHomeworksRepository();
-    sut = new DeleteHomeworkUseCase(homeworksRepository);
+    sut = new EditHomeworkUseCase(homeworksRepository);
   });
 
-  it("should be able to delete a homework", async () => {
+  it("should be able to edit a homework", async () => {
     const user = new User({
       name: "John Doe",
       email: "johndoe@example.com",
@@ -25,6 +25,7 @@ describe("Delete Homework Use Case", () => {
     });
 
     const homeworkId = ulid();
+    const now = new Date();
 
     await homeworksRepository.create(
       new Homework(
@@ -32,9 +33,9 @@ describe("Delete Homework Use Case", () => {
           title: "Homework",
           description: "Description",
           userId: user.id,
-          createdAt: new Date(),
+          createdAt: now,
           completedAt: null,
-          dueDate: new Date(),
+          dueDate: now,
           subject: "MATH",
         },
         homeworkId,
@@ -45,15 +46,30 @@ describe("Delete Homework Use Case", () => {
       sut.execute({
         id: homeworkId,
         userId: user.id,
+        title: "Math homework (EDITED)",
+        description: "Do the exercises 1, 2, 3 and 4",
       }),
     ).resolves.not.toThrow();
 
     const homework = await homeworksRepository.findById(homeworkId);
 
-    expect(homework).toBeNull();
+    expect(homework).toEqual(
+      new Homework(
+        {
+          title: "Math homework (EDITED)",
+          description: "Do the exercises 1, 2, 3 and 4",
+          userId: user.id,
+          createdAt: now,
+          completedAt: null,
+          dueDate: now,
+          subject: "MATH",
+        },
+        homeworkId,
+      ),
+    );
   });
 
-  it("should not be able to delete a homework that does not exist", async () => {
+  it("should not be able to edit a homework that does not exist", async () => {
     const user = new User({
       name: "John Doe",
       email: "johndoe@example.com",
@@ -69,7 +85,7 @@ describe("Delete Homework Use Case", () => {
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 
-  it("should not be able to delete a homework that belongs to another user", async () => {
+  it("should not be able to edit a homework that belongs to another user", async () => {
     const user1 = new User({
       name: "John Doe",
       email: "johndoe@example.com",
