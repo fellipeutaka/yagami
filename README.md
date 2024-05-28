@@ -1,8 +1,10 @@
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Yagami&uri=https%3A%2F%2Fraw.githubusercontent.com%2Ffellipeutaka%2Fyagami%2Fmain%2F.github%2Fassets%2Finsomnia.json)
+
 ## Todo
 
 - [x] Setup Prisma to E2E tests
 - [x] Add Swagger
-- [ ] Add `Insomnia.json`
+- [x] Add `Insomnia.json`
 
 ## RFs (Requisitos funcionais)
 
