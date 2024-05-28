@@ -1,4 +1,5 @@
 import type { FastifyInstance } from "fastify";
+import { complete } from "./complete";
 import { create } from "./create";
 import { deleteHomework } from "./delete";
 import { edit } from "./edit";
@@ -9,14 +10,5 @@ export async function homeworksRoutes(app: FastifyInstance) {
   app.register(create);
   app.register(edit);
   app.register(deleteHomework);
-  // app.patch(
-  //   "/homeworks/:id",
-  //   {
-  //     schema: {
-  //       tags: ["Homework"],
-  //     },
-  //     onRequest: [(...params) => verifyJwt(...params)],
-  //   },
-  //   list,
-  // );
+  app.register(complete);
 }

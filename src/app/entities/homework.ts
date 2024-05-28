@@ -44,6 +44,10 @@ export class Homework {
     return this.props.completedAt;
   }
 
+  complete() {
+    this.props.completedAt = new Date();
+  }
+
   get createdAt() {
     return this.props.createdAt;
   }
