@@ -16,7 +16,7 @@
     "start:dev": "tsx watch --env-file=.env src/server.ts",
     "start:debug": "tsx watch --inspect-brk --env-file=.env src/server.ts",
     "start:prod": "node --env-file=.env .",
-    "lint": "biome check --apply .",
+    "lint": "biome check",
     "vitest": "node --env-file=.env ./node_modules/vitest/vitest.mjs",
     "test": "pnpm vitest run --dir src/app",
     "test:watch": "pnpm vitest --dir src/app",
@@ -38,14 +38,15 @@
     "db:delete": "docker compose down -v"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.7.3",
+    "@biomejs/biome": "2.2.0",
     "@scalar/api-reference": "1.22.43",
     "@types/node": "^20.12.12",
     "@vitest/coverage-v8": "^1.6.0",
     "prisma": "^5.14.0",
     "tsup": "^8.0.2",
     "tsx": "^4.10.5",
-    "typescript": "^5.4.5",
+    "typescript": "^5.9.2",
+    "ultracite": "5.2.4",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.6.0"
   },
@@ -57,6 +58,7 @@
     "argon2": "^0.40.1",
     "fastify": "^4.27.0",
     "fastify-zod-openapi": "^1.2.0",
+    "ulidx": "^2.4.1",
     "zod": "^3.23.8",
     "zod-openapi": "^2.17.0"
   }

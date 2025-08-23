@@ -7,7 +7,7 @@ interface GetPaginatedHomeworksUseCaseRequest {
 }
 
 export class GetPaginatedHomeworksUseCase {
-  constructor(private homeworksRepository: HomeworksRepository) {}
+  constructor(private readonly homeworksRepository: HomeworksRepository) {}
 
   async execute({
     lastCursor,

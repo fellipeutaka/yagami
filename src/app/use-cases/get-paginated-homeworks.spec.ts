@@ -31,7 +31,7 @@ describe("Get Paginated Homeworks Use Case", () => {
           completedAt: null,
           dueDate: new Date(),
           subject: "MATH",
-        }),
+        })
       ),
       homeworksRepository.create(
         new Homework({
@@ -42,7 +42,7 @@ describe("Get Paginated Homeworks Use Case", () => {
           completedAt: null,
           dueDate: new Date(),
           subject: "CHEMISTRY",
-        }),
+        })
       ),
       homeworksRepository.create(
         new Homework({
@@ -53,7 +53,7 @@ describe("Get Paginated Homeworks Use Case", () => {
           completedAt: null,
           dueDate: new Date(),
           subject: "GEOGRAPHY",
-        }),
+        })
       ),
     ]);
 
@@ -90,7 +90,7 @@ describe("Get Paginated Homeworks Use Case", () => {
           completedAt: null,
           dueDate: new Date(),
           subject: "MATH",
-        }),
+        })
       ),
       homeworksRepository.create(
         new Homework({
@@ -101,7 +101,7 @@ describe("Get Paginated Homeworks Use Case", () => {
           completedAt: null,
           dueDate: new Date(),
           subject: "CHEMISTRY",
-        }),
+        })
       ),
       homeworksRepository.create(
         new Homework({
@@ -112,7 +112,7 @@ describe("Get Paginated Homeworks Use Case", () => {
           completedAt: null,
           dueDate: new Date(),
           subject: "GEOGRAPHY",
-        }),
+        })
       ),
     ]);
 

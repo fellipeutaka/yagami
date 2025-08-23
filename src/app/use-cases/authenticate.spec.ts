@@ -21,7 +21,7 @@ describe("Authenticate Use Case", () => {
         email: "johndoe@example.com",
         password: await hash("123456"),
         createdAt: new Date(),
-      }),
+      })
     );
 
     const { user } = await sut.execute({
@@ -37,7 +37,7 @@ describe("Authenticate Use Case", () => {
       sut.execute({
         email: "johndoe@example.com",
         password: "123456",
-      }),
+      })
     ).rejects.toBeInstanceOf(InvalidCredentialsError);
   });
 
@@ -48,14 +48,14 @@ describe("Authenticate Use Case", () => {
         email: "johndoe@example.com",
         password: await hash("123456"),
         createdAt: new Date(),
-      }),
+      })
     );
 
     await expect(
       sut.execute({
         email: "johndoe@example.com",
         password: "123123",
-      }),
+      })
     ).rejects.toBeInstanceOf(InvalidCredentialsError);
   });
 });

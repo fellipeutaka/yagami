@@ -1,0 +1,110 @@
+{
+  "$schema": "node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["ultracite"],
+  "files": {
+    "includes": ["**", "!src/generated"]
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git"
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double"
+    }
+  },
+  "formatter": {
+    "indentStyle": "space"
+  },
+  "linter": {
+    "rules": {
+      "style": {
+        "noParameterProperties": "off",
+        "useReadonlyClassProperties": {
+          "fix": "safe",
+          "level": "error",
+          "options": {
+            "checkAllProperties": true
+          }
+        },
+        "useAtIndex": {
+          "fix": "safe",
+          "level": "error"
+        },
+        "noMagicNumbers": "off"
+      },
+      "suspicious": {
+        "noEmptyBlockStatements": "off",
+        "noConsole": {
+          "level": "warn",
+          "options": {
+            "allow": ["warn", "error", "info"]
+          }
+        }
+      },
+      "complexity": {
+        "noStaticOnlyClass": "off"
+      },
+      "correctness": {
+        "noUnusedImports": {
+          "fix": "safe",
+          "level": "warn"
+        }
+      },
+      "nursery": {
+        "useConsistentTypeDefinitions": {
+          "level": "error",
+          "options": {
+            "style": "interface"
+          }
+        }
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.config.ts", "prisma/test-environment.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noDefaultExport": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "src/http/controllers/**/*.ts",
+        "src/app/repositories/in-memory/*.ts",
+        "prisma/test-environment.ts"
+      ],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "useAwait": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/app/repositories/in-memory/*"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useConsistentMemberAccessibility": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/@types/*.d.ts", "src/env.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useNamingConvention": "off"
+          }
+        }
+      }
+    }
+  ]
+}

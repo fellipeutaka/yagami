@@ -20,7 +20,7 @@ export class PrismaUserMapper {
         password: raw.passwordHash,
         createdAt: raw.createdAt,
       },
-      raw.id,
+      raw.id
     );
   }
 }

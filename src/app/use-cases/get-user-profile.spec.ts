@@ -21,7 +21,7 @@ describe("Get User Profile Use Case", () => {
         email: "johndoe@example.com",
         password: await hash("123456"),
         createdAt: new Date(),
-      }),
+      })
     );
 
     const { user } = await sut.execute({
@@ -35,7 +35,7 @@ describe("Get User Profile Use Case", () => {
     await expect(
       sut.execute({
         userId: "non-existing-id",
-      }),
+      })
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 });

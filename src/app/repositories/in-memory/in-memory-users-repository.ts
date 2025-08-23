@@ -2,7 +2,7 @@ import type { User } from "~/app/entities/user";
 import type { UsersRepository } from "../users-repository";
 
 export class InMemoryUsersRepository implements UsersRepository {
-  public items: User[] = [];
+  public readonly items: User[] = [];
 
   async findById(id: string) {
     const user = this.items.find((item) => item.id === id);

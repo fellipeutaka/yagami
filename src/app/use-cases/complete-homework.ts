@@ -9,7 +9,7 @@ interface CompleteHomeworkUseCaseRequest {
 }
 
 export class CompleteHomeworkUseCase {
-  constructor(private homeworksRepository: HomeworksRepository) {}
+  constructor(private readonly homeworksRepository: HomeworksRepository) {}
 
   async execute({ id, userId }: CompleteHomeworkUseCaseRequest) {
     const homework = await this.homeworksRepository.findById(id);

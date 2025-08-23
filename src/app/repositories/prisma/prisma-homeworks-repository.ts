@@ -84,7 +84,7 @@ export class PrismaHomeworksRepository implements HomeworksRepository {
 
     return {
       data: data.map((homework) =>
-        PrismaHomeworkMapper.toDomain({ ...homework, userId }),
+        PrismaHomeworkMapper.toDomain({ ...homework, userId })
       ),
       meta: {
         lastCursor: cursor,

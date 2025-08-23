@@ -50,7 +50,7 @@ describe("Register Use Case", () => {
         name: "John Doe",
         email,
         password: "123456",
-      }),
+      })
     ).rejects.toBeInstanceOf(UserAlreadyExistsError);
   });
 });

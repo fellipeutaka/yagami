@@ -4,7 +4,7 @@ import { CompleteHomeworkUseCase } from "../complete-homework";
 export function makeCompleteHomeworkUseCase() {
   const homeworksRepository = new PrismaHomeworksRepository();
   const completeHomeworkUseCase = new CompleteHomeworkUseCase(
-    homeworksRepository,
+    homeworksRepository
   );
 
   return completeHomeworkUseCase;

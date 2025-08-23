@@ -51,6 +51,6 @@ export async function profile(app: FastifyInstance) {
           createdAt: user.createdAt,
         },
       });
-    },
+    }
   );
 }

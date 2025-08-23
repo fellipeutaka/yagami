@@ -55,6 +55,6 @@ export async function deleteHomework(app: FastifyInstance) {
 
         throw err;
       }
-    },
+    }
   );
 }

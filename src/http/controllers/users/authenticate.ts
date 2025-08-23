@@ -52,7 +52,7 @@ export async function authenticate(app: FastifyInstance) {
               sub: user.id,
               expiresIn: "10m",
             },
-          },
+          }
         );
 
         const refreshToken = await reply.jwtSign(
@@ -62,7 +62,7 @@ export async function authenticate(app: FastifyInstance) {
               sub: user.id,
               expiresIn: "7d",
             },
-          },
+          }
         );
 
         return reply.status(200).send({
@@ -76,6 +76,6 @@ export async function authenticate(app: FastifyInstance) {
 
         throw err;
       }
-    },
+    }
   );
 }

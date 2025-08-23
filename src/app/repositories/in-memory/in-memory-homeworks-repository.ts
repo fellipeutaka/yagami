@@ -19,7 +19,7 @@ export class InMemoryHomeworksRepository implements HomeworksRepository {
 
     const data = this.items.slice(startIndex, startIndex + perPage);
 
-    const lastItem = data[data.length - 1];
+    const lastItem = data.at(-1);
     const lastCursorValue = lastItem ? lastItem.id : null;
 
     const hasNextPage = this.items.length > startIndex + perPage;

@@ -57,6 +57,6 @@ export async function create(app: FastifyInstance) {
       });
 
       return reply.status(201).send();
-    },
+    }
   );
 }

@@ -6,7 +6,7 @@ interface GetUserProfileUseCaseRequest {
 }
 
 export class GetUserProfileUseCase {
-  constructor(private usersRepository: UsersRepository) {}
+  constructor(private readonly usersRepository: UsersRepository) {}
 
   async execute({ userId }: GetUserProfileUseCaseRequest) {
     const user = await this.usersRepository.findById(userId);

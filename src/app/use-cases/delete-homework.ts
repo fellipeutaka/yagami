@@ -8,7 +8,7 @@ interface DeleteHomeworkUseCaseRequest {
 }
 
 export class DeleteHomeworkUseCase {
-  constructor(private homeworksRepository: HomeworksRepository) {}
+  constructor(private readonly homeworksRepository: HomeworksRepository) {}
 
   async execute({ id, userId }: DeleteHomeworkUseCaseRequest) {
     const homework = await this.homeworksRepository.findById(id);

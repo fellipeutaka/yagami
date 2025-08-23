@@ -10,7 +10,7 @@ interface RegisterUseCaseRequest {
 }
 
 export class RegisterUseCase {
-  constructor(private usersRepository: UsersRepository) {}
+  constructor(private readonly usersRepository: UsersRepository) {}
 
   async execute({ name, email, password }: RegisterUseCaseRequest) {
     const userWithSameEmail = await this.usersRepository.findByEmail(email);
@@ -25,7 +25,7 @@ export class RegisterUseCase {
         email,
         password: await hash(password),
         createdAt: new Date(),
-      }),
+      })
     );
 
     return { user };

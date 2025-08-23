@@ -2,15 +2,15 @@ import "zod-openapi/extend";
 import { fastify } from "fastify";
 
 import {
-  ValidationError,
   fastifyZodOpenApiPlugin,
   fastifyZodOpenApiTransform,
   fastifyZodOpenApiTransformObject,
   serializerCompiler,
+  ValidationError,
   validatorCompiler,
 } from "fastify-zod-openapi";
 import { ZodError } from "zod";
-import packageJson from "../package.json";
+import packageJson from "../package.json" with { type: "json" };
 import { env } from "./env";
 import { homeworksRoutes } from "./http/controllers/homeworks/routes";
 import { usersRoutes } from "./http/controllers/users/routes";

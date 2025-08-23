@@ -1,8 +1,8 @@
 import { hash } from "argon2";
+import { ulid } from "ulidx";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { app } from "~/app";
 import { prisma } from "~/lib/prisma";
-import { ulid } from "~/lib/ulid";
 import { createAndAuthenticateUser } from "~/utils/tests/create-and-authenticate-user";
 import { getTomorrow } from "~/utils/tests/get-tomorrow";
 
@@ -15,7 +15,7 @@ describe("Delete homework (E2E)", async () => {
     await app.close();
   });
 
-  const { accessToken, userId } = await createAndAuthenticateUser(app);
+  const authenticatedUser = await createAndAuthenticateUser(app);
 
   it("should be able to delete a homework", async () => {
     const dueDate = getTomorrow().toISOString();
@@ -29,7 +29,7 @@ describe("Delete homework (E2E)", async () => {
         description: "Do the exercises 1, 2 and 3",
         dueDate,
         subject: "MATH",
-        userId,
+        userId: authenticatedUser.userId,
       },
     });
 
@@ -37,7 +37,7 @@ describe("Delete homework (E2E)", async () => {
       method: "DELETE",
       url: `/homeworks/${homeworkId}`,
       headers: {
-        authorization: `Bearer ${accessToken}`,
+        authorization: `Bearer ${authenticatedUser.accessToken}`,
       },
     });
 
@@ -50,7 +50,7 @@ describe("Delete homework (E2E)", async () => {
       method: "DELETE",
       url: `/homeworks/${ulid()}`,
       headers: {
-        authorization: `Bearer ${accessToken}`,
+        authorization: `Bearer ${authenticatedUser.accessToken}`,
       },
     });
 
@@ -91,7 +91,7 @@ describe("Delete homework (E2E)", async () => {
       method: "DELETE",
       url: `/homeworks/${homeworkId}`,
       headers: {
-        authorization: `Bearer ${accessToken}`,
+        authorization: `Bearer ${authenticatedUser.accessToken}`,
       },
     });
 

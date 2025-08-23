@@ -37,7 +37,7 @@ export async function refresh(app: FastifyInstance) {
             sub: request.user.sub,
             expiresIn: "10m",
           },
-        },
+        }
       );
 
       const refreshToken = await reply.jwtSign(
@@ -47,13 +47,13 @@ export async function refresh(app: FastifyInstance) {
             sub: request.user.sub,
             expiresIn: "7d",
           },
-        },
+        }
       );
 
       return reply.status(201).send({
         accessToken,
         refreshToken,
       });
-    },
+    }
   );
 }

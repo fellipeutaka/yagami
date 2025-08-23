@@ -1,5 +1,5 @@
+import { ulid } from "ulidx";
 import type { Subject } from "~/constants/subjects";
-import { ulid } from "~/lib/ulid";
 
 export interface HomeworkProps {
   title: string;

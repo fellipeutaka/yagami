@@ -60,6 +60,6 @@ export async function complete(app: FastifyInstance) {
 
         throw err;
       }
-    },
+    }
   );
 }

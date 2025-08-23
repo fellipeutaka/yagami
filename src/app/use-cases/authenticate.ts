@@ -7,7 +7,7 @@ interface AuthenticateUseCaseRequest {
 }
 
 export class AuthenticateUseCase {
-  constructor(private usersRepository: UsersRepository) {}
+  constructor(private readonly usersRepository: UsersRepository) {}
 
   async execute({ email, password }: AuthenticateUseCaseRequest) {
     const user = await this.usersRepository.findByEmail(email);

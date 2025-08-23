@@ -26,7 +26,7 @@ export class PrismaHomeworkMapper {
         subject: raw.subject,
         userId: raw.userId,
       },
-      raw.id,
+      raw.id
     );
   }
 }

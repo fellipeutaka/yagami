@@ -78,6 +78,6 @@ export async function list(app: FastifyInstance) {
         data,
         meta,
       });
-    },
+    }
   );
 }

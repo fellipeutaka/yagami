@@ -11,7 +11,7 @@ interface EditHomeworkUseCaseRequest
 }
 
 export class EditHomeworkUseCase {
-  constructor(private homeworksRepository: HomeworksRepository) {}
+  constructor(private readonly homeworksRepository: HomeworksRepository) {}
 
   async execute({
     id,
@@ -42,8 +42,8 @@ export class EditHomeworkUseCase {
           createdAt: homework.createdAt,
           userId: homework.userId,
         },
-        homework.id,
-      ),
+        homework.id
+      )
     );
   }
 }

@@ -48,6 +48,6 @@ export async function register(app: FastifyInstance) {
       }
 
       return reply.status(201).send();
-    },
+    }
   );
 }

@@ -23,7 +23,7 @@ describe("Create Homework Use Case", () => {
         dueDate,
         subject: "MATH",
         userId,
-      }),
+      })
     ).resolves.not.toThrow();
 
     const { data, meta } = await homeworksRepository.paginate({
@@ -43,8 +43,8 @@ describe("Create Homework Use Case", () => {
           completedAt: null,
           createdAt: data.at(0)?.createdAt ?? new Date(),
         },
-        data.at(0)?.id,
-      ),
+        data.at(0)?.id
+      )
     );
 
     expect(meta).toEqual({

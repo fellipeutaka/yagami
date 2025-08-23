@@ -1,5 +1,5 @@
+import { ulid } from "ulidx";
 import { beforeEach, describe, expect, it } from "vitest";
-import { ulid } from "~/lib/ulid";
 import { Homework } from "../entities/homework";
 import { User } from "../entities/user";
 import { InMemoryHomeworksRepository } from "../repositories/in-memory/in-memory-homeworks-repository";
@@ -37,15 +37,15 @@ describe("Delete Homework Use Case", () => {
           dueDate: new Date(),
           subject: "MATH",
         },
-        homeworkId,
-      ),
+        homeworkId
+      )
     );
 
     await expect(
       sut.execute({
         id: homeworkId,
         userId: user.id,
-      }),
+      })
     ).resolves.not.toThrow();
 
     const homework = await homeworksRepository.findById(homeworkId);
@@ -65,7 +65,7 @@ describe("Delete Homework Use Case", () => {
       sut.execute({
         id: ulid(),
         userId: user.id,
-      }),
+      })
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 
@@ -97,15 +97,15 @@ describe("Delete Homework Use Case", () => {
           dueDate: new Date(),
           subject: "MATH",
         },
-        homeworkId,
-      ),
+        homeworkId
+      )
     );
 
     await expect(
       sut.execute({
         id: homeworkId,
         userId: user2.id,
-      }),
+      })
     ).rejects.toBeInstanceOf(UnauthorizedError);
   });
 });

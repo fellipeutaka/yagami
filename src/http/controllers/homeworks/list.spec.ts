@@ -1,7 +1,7 @@
+import { ulid } from "ulidx";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { app } from "~/app";
 import { prisma } from "~/lib/prisma";
-import { ulid } from "~/lib/ulid";
 import { createAndAuthenticateUser } from "~/utils/tests/create-and-authenticate-user";
 import { getTomorrow } from "~/utils/tests/get-tomorrow";
 import { successSchema } from "./list";

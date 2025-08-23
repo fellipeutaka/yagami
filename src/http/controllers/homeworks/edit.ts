@@ -62,6 +62,6 @@ export async function edit(app: FastifyInstance) {
 
         throw err;
       }
-    },
+    }
   );
 }

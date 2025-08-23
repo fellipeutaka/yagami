@@ -11,7 +11,7 @@ export interface CreateHomeworkUseCaseRequest {
 }
 
 export class CreateHomeworkUseCase {
-  constructor(private homeworksRepository: HomeworksRepository) {}
+  constructor(private readonly homeworksRepository: HomeworksRepository) {}
 
   async execute({
     title,
@@ -29,7 +29,7 @@ export class CreateHomeworkUseCase {
         completedAt: null,
         createdAt: new Date(),
         userId,
-      }),
+      })
     );
   }
 }

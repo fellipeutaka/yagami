@@ -11,7 +11,7 @@ const { message } = new UnauthorizedError();
 export async function verifyJwt(
   request: FastifyRequest,
   reply: FastifyReply,
-  _done?: HookHandlerDoneFunction,
+  _done?: HookHandlerDoneFunction
 ) {
   try {
     await request.jwtVerify();
