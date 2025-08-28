@@ -1,4 +1,4 @@
-import type { ZodOpenApiComponentsObject } from "zod-openapi";
+import type { OpenAPIV3 } from "openapi-types";
 
 export const securitySchemes = {
   Bearer: {
@@ -7,4 +7,9 @@ export const securitySchemes = {
     bearerFormat: "JWT",
     name: "Bearer",
   },
-} as const satisfies ZodOpenApiComponentsObject["securitySchemes"];
+} as const satisfies Record<
+  string,
+  OpenAPIV3.SecuritySchemeObject & {
+    name: string;
+  }
+>;

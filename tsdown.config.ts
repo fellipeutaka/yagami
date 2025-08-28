@@ -6,5 +6,5 @@ export default defineConfig({
   minify: true,
   clean: true,
   platform: "node",
-  target: "es2024",
+  target: "es2022",
 });
