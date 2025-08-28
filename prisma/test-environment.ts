@@ -1,7 +1,7 @@
 import { execSync } from "node:child_process";
-import { PrismaClient } from "@prisma/client";
 import type { Environment } from "vitest/environments";
 import { env } from "~/env";
+import { PrismaClient } from "~/prisma/generated/client/client";
 
 const prisma = new PrismaClient();
 

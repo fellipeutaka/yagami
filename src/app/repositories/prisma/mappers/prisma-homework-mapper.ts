@@ -1,5 +1,5 @@
-import type { Homework as RawHomework } from "@prisma/client";
 import { Homework } from "~/app/entities/homework";
+import type { Homework as RawHomework } from "~/prisma/generated/client/client";
 
 export class PrismaHomeworkMapper {
   static toPrisma(homework: Homework): RawHomework {

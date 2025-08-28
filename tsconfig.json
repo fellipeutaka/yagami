@@ -14,7 +14,8 @@
     "lib": ["es2022"],
     "baseUrl": "./",
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "~/prisma/*": ["./prisma/*"]
     },
     "strictNullChecks": true
   }

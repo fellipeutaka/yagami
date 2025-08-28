@@ -1,6 +1,6 @@
-import type { Prisma } from "@prisma/client";
 import type { Homework } from "~/app/entities/homework";
 import { prisma } from "~/lib/prisma";
+import type { Prisma } from "~/prisma/generated/client/client";
 import type {
   HomeworkPaginateProps,
   HomeworksRepository,
