@@ -12,9 +12,9 @@ export async function register(app: FastifyInstance) {
         description: "Register a new user",
         tags: ["User"],
         body: z.object({
-          name: z.string().openapi({ example: "John Doe" }),
-          email: z.string().email().openapi({ example: "johndoe@example.com" }),
-          password: z.string().min(6).openapi({ example: "123456" }),
+          name: z.string().meta({ example: "John Doe" }),
+          email: z.email().meta({ example: "johndoe@example.com" }),
+          password: z.string().min(6).meta({ example: "123456" }),
         }),
         response: {
           201: z.null(),
@@ -22,9 +22,9 @@ export async function register(app: FastifyInstance) {
             .object({
               message: z
                 .string()
-                .openapi({ example: new UserAlreadyExistsError().message }),
+                .meta({ example: new UserAlreadyExistsError().message }),
             })
-            .openapi({
+            .meta({
               description: "Conflict",
             }),
         },

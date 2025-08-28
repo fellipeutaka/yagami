@@ -24,11 +24,29 @@ export async function complete(app: FastifyInstance) {
           },
         ],
         params: z.object({
-          id: z.string().ulid().openapi({ description: "Homework ID" }),
+          id: z.ulid().meta({ description: "Homework ID" }),
         }),
         response: {
           ...unauthorizedErrorSchema,
           200: z.null(),
+          400: z
+            .object({
+              message: z
+                .string()
+                .meta({ example: new HomeworkAlreadyCompletedError().message }),
+            })
+            .meta({
+              description: "Bad Request",
+            }),
+          404: z
+            .object({
+              message: z
+                .string()
+                .meta({ example: new ResourceNotFoundError().message }),
+            })
+            .meta({
+              description: "Not Found",
+            }),
         },
       },
       onRequest: [(...params) => verifyJwt(...params)],

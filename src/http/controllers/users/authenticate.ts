@@ -17,8 +17,8 @@ export async function authenticate(app: FastifyInstance) {
         description: "Authenticate a user",
         tags: ["User"],
         body: z.object({
-          email: z.string().email().openapi({ example: "johndoe@example.com" }),
-          password: z.string().min(6).openapi({ example: "123456" }),
+          email: z.email().meta({ example: "johndoe@example.com" }),
+          password: z.string().min(6).meta({ example: "123456" }),
         }),
         response: {
           201: successSchema,
@@ -26,9 +26,9 @@ export async function authenticate(app: FastifyInstance) {
             .object({
               message: z
                 .string()
-                .openapi({ example: new InvalidCredentialsError().message }),
+                .meta({ example: new InvalidCredentialsError().message }),
             })
-            .openapi({
+            .meta({
               description: "Bad Request",
             }),
         },
@@ -65,7 +65,7 @@ export async function authenticate(app: FastifyInstance) {
           }
         );
 
-        return reply.status(200).send({
+        return reply.status(201).send({
           accessToken,
           refreshToken,
         });

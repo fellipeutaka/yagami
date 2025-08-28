@@ -22,7 +22,7 @@ export const successSchema = z.object({
     .array(),
   meta: z.object({
     lastCursor: z.string().nullable(),
-    hasNextPage: z.boolean().openapi({
+    hasNextPage: z.boolean().meta({
       example: false,
     }),
   }),
@@ -41,7 +41,7 @@ export async function list(app: FastifyInstance) {
           },
         ],
         querystring: z.object({
-          lastCursor: z.string().optional().openapi({
+          lastCursor: z.string().optional().meta({
             description: "The cursor to start fetching the next page",
           }),
           perPage: z.coerce
@@ -51,7 +51,7 @@ export async function list(app: FastifyInstance) {
             .max(50)
             .optional()
             .default(10)
-            .openapi({
+            .meta({
               example: 10,
               description: "The number of items per page",
             }),

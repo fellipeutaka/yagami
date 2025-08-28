@@ -31,7 +31,7 @@ describe("Authenticate (E2E)", () => {
       },
     });
 
-    expect(response.statusCode).toEqual(200);
+    expect(response.statusCode).toEqual(201);
     expect(JSON.parse(response.body)).toEqual({
       accessToken: expect.stringMatching(REGEXP_JWT),
       refreshToken: expect.stringMatching(REGEXP_JWT),

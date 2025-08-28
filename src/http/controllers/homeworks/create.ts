@@ -10,17 +10,17 @@ import {
 import { securitySchemes } from "~/lib/swagger";
 
 export const createHomeworkBodySchema = z.object({
-  title: z.string().min(3).max(255).openapi({ example: "Math homework" }),
+  title: z.string().min(3).max(255).meta({ example: "Math homework" }),
   description: z
     .string()
     .min(3)
     .max(255)
-    .openapi({ example: "Do the exercises 1, 2 and 3" }),
+    .meta({ example: "Do the exercises 1, 2 and 3" }),
   dueDate: z.coerce
     .date()
     .min(new Date(), "Due date must be in the future")
-    .openapi({ example: new Date() }),
-  subject: z.nativeEnum(subjects).openapi({ example: "MATH" }),
+    .meta({ example: new Date() }),
+  subject: z.nativeEnum(subjects).meta({ example: "MATH" }),
 });
 
 export async function create(app: FastifyInstance) {

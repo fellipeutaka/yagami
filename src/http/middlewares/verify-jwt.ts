@@ -23,9 +23,9 @@ export async function verifyJwt(
 export const unauthorizedErrorSchema = {
   401: z
     .object({
-      message: z.string().openapi({ example: message }),
+      message: z.string().meta({ example: message }),
     })
-    .openapi({
+    .meta({
       description: message,
     }),
 } as const;

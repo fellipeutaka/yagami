@@ -1,15 +1,15 @@
-import "zod-openapi/extend";
 import { fastify } from "fastify";
 
 import {
   fastifyZodOpenApiPlugin,
   fastifyZodOpenApiTransform,
   fastifyZodOpenApiTransformObject,
+  RequestValidationError,
   serializerCompiler,
-  ValidationError,
   validatorCompiler,
 } from "fastify-zod-openapi";
 import { ZodError } from "zod";
+import { treeifyError } from "zod/mini";
 import packageJson from "../package.json" with { type: "json" };
 import { env } from "./env";
 import { homeworksRoutes } from "./http/controllers/homeworks/routes";
@@ -22,14 +22,14 @@ app.setErrorHandler((error, _req, reply) => {
   if (error instanceof ZodError) {
     return reply.status(400).send({
       message: "Validation error",
-      errors: error.flatten().fieldErrors,
+      errors: treeifyError(error),
     });
   }
 
-  if (error instanceof ValidationError) {
+  if (error instanceof RequestValidationError) {
     return reply.status(400).send({
       message: "Validation error",
-      errors: error.zodError.flatten().fieldErrors,
+      errors: treeifyError(error.params.error),
     });
   }
 
@@ -72,9 +72,6 @@ app.register(import("@scalar/fastify-api-reference"), {
       title: "Yagami",
       description: packageJson.description,
       author: packageJson.author.name,
-    },
-    spec: {
-      content: app.swagger,
     },
   },
 });
