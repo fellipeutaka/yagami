@@ -1,5 +1,14 @@
 {
-  "cSpell.words": ["biomejs", "fastify", "openapi", "tsup", "yagami"],
+  "cSpell.words": [
+    "biomejs",
+    "fastify",
+    "openapi",
+    "tsdown",
+    "tsup",
+    "ulidx",
+    "ultracite",
+    "yagami"
+  ],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,

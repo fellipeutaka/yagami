@@ -1,9 +1,10 @@
-import { defineConfig } from "tsup";
+import { defineConfig } from "tsdown";
 
 export default defineConfig({
   entry: ["src/server.ts"],
   format: ["esm"],
-  splitting: true,
   minify: true,
   clean: true,
+  platform: "node",
+  target: "es2024",
 });

@@ -11,7 +11,7 @@
     "url": "https://fellipeutaka.vercel.app"
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsdown",
     "start": "tsx --env-file=.env src/server.ts",
     "start:dev": "tsx watch --env-file=.env src/server.ts",
     "start:debug": "tsx watch --inspect-brk --env-file=.env src/server.ts",
@@ -44,7 +44,7 @@
     "@types/node": "^24.3.0",
     "@vitest/coverage-v8": "^3.2.4",
     "prisma": "^5.14.0",
-    "tsup": "^8.0.2",
+    "tsdown": "^0.14.2",
     "tsx": "^4.10.5",
     "typescript": "^5.9.2",
     "ultracite": "5.2.4",
